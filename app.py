@@ -113,7 +113,7 @@ def show_profile():
 
     if not user:
     
-        return redirect('/login')
+        return redirect('/')
 
     usr = User.query.filter_by(id=user).first()
 
@@ -217,7 +217,6 @@ def finish_game():
     x = json.loads(request.data)
 
     board = x['board']
-    solved = x['solved']
     level = x['level']
     clock = x['clock']
 
@@ -229,26 +228,27 @@ def finish_game():
     finished = User.query.filter_by(id=user).first()
     print(finished.name)
 
-    finished.total_played += 1
-    db.session.add(finished)
-    db.session.commit()
-
-    if saved.solved == str(board):
-        db.session.delete(saved)
+    if user:
+        finished.total_played += 1
+        db.session.add(finished)
         db.session.commit()
 
-    if usr != None:
-        if usr.time > clock:
-            PersonalBest.query.get((level,user)).time = clock
-            PersonalBest.query.get((level,user)).level = level
-
-            db.session.add(usr)
+        if saved.solved == str(board):
+            db.session.delete(saved)
             db.session.commit()
-    else:
-            new = PersonalBest(level=level,time=clock,user_id=user)
 
-            db.session.add(new)
-            db.session.commit()
+        if usr != None:
+            if usr.time > clock:
+                PersonalBest.query.get((level,user)).time = clock
+                PersonalBest.query.get((level,user)).level = level
+
+                db.session.add(usr)
+                db.session.commit()
+        else:
+                new = PersonalBest(level=level,time=clock,user_id=user)
+
+                db.session.add(new)
+                db.session.commit()
 
     return x
 
