@@ -3,11 +3,11 @@ from flask_login import login_user, current_user, logout_user
 from models import db, connect_db, load_user, User, SavedGame, PersonalBest
 from forms import ChooseLevel, Level, Login, SignUp
 from werkzeug.security import generate_password_hash, check_password_hash
-import requests
-import json
+import requests, json, os
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '46fyt' 
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mysecret7f75ht6ghdmcbc739')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///Sudoku'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
