@@ -123,7 +123,7 @@
 
     {% if user %}
     
-    <button class="btn btn-light btn-outline-dark save">Save Game</button>
+    <button onclick="saveGame()" class="btn btn-light btn-outline-dark save">Save Game</button>
     <br>
     <br>
     <h6>If you already have a saved game for current level ({{level}}), your previously saved game will be deleted.</h6>
@@ -191,7 +191,6 @@
             }
                
     
-    btn = document.querySelector('.save')
     let newBoard = '';
 
     function makePostRequest(path, queryObj) { 
@@ -205,8 +204,7 @@
         } 
     ); 
 } 
-    btn.addEventListener('click', async function(e) {
-        e.preventDefault()
+    function saveGame(e) {
         clock = clk.innerHTML
               
         newB()
@@ -221,7 +219,7 @@
         makePostRequest('/save_game', queryObj);
         alert("You saved the game!")
 
-    })
+    }
 
 div = document.querySelector('div')
 
