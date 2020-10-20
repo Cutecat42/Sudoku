@@ -8,7 +8,7 @@ import requests, json, os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mysecret7f75ht6ghdmcbc739')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///Sudoku'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///Sudoku')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 
