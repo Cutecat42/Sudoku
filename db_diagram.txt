@@ -1,0 +1,37 @@
+
+users
+Update ttl_played by one every time a game is finished by user
+
+id | username  |  password  |  ttl_played
+---+-----------+------------+--------------
+1  | Cutecat42 | hashedhib  |  51
+2  | Greg      | wu8fhdyhib |  1
+3  | zZhiizZ   | 9933udhhib |  1923
+
+**
+saved_games - primary_key = level & user_id
+
+level  |  unsolved | solved  | time   |  user_id FK
+-------+-----------+---------+--------+-----------
+easy   | string1   | string2 | 01:20  | 1
+medium | string1   | string2 | 08:34  | 1
+medium | string1   | string2 | 00:23  | 2
+hard   | string1   | string2 | 22:12  | 3 
+
+**
+personal_best - primary_key = user_id & level
+If level's time is less than what is stored, update time
+
+level |  time  | user_id FK 
+------+--------+--------------
+easy  | 00:23  | 1
+hard  | 10:59  | 1
+easy  | 05:12  | 2
+(User 1 just finished another easy game with a time of 03:36 - time doesn't get updated)
+(User 2 just finished another easy game with a time of 03:36 - time does get updated)
+
+**
+global_best
+How to implement? Create a new table, or just filter top times from personal_best?
+
+

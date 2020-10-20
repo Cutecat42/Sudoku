@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Sign-Up {% endblock %}
+
+{% block content %}
+
+
+<div class="text-center">
+    <h1 class="m-3">Sign-Up</h1>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }} Go to <a href="/login">login page</a>.
+            
+        </div>
+    {% endif %}
+    {% endwith %}
+    <br>
+    
+    <form method="post">
+        {{ form.hidden_tag() }}
+    
+        {% for field in form 
+            if field.widget.input_type != 'hidden' %}
+    
+        <p>
+            {{ field.label }}
+            {{ field }}
+        </p>
+    
+        {% endfor %}
+    
+        <button class="btn-light btn-outline-dark">Submit</button>
+    
+    
+    </form>
+    </div>
+
+
+
+{% endblock %}

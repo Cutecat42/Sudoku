@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} Choose a Level {% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+<h1 class="m-3">Play Sudoku</h1>
+
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    {% for field in form 
+        if field.widget.input_type != 'hidden' %}
+
+    <p>
+        {{ field.label }}
+        {{ field }}
+    </p>
+
+    {% endfor %}
+
+    <button class="btn-light btn-outline-dark">Submit</button>
+
+
+</form>
+</div>
+
+
+
+
+
+{% endblock %}

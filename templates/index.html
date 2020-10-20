@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Welcome! {% endblock %}
+
+{% block content %}
+
+<div class="text-center m-3">
+
+<h1>Welcome!</h1>
+<form action="/choose_level" method="get">
+    <button class="btn-light btn-outline-dark">Play Sudoku?</button>
+</form>
+
+{% if not user %}
+
+<form action="/sign_up" method="get">
+    <button class="btn-light btn-outline-dark">Register</button>
+</form>
+
+<form action="/login" method="get">
+    <button class="btn-light btn-outline-dark">Login</button>
+</form>
+
+{% endif %}
+
+{% if user %}
+
+<form action="/profile" method="get">
+    <button class="btn-light btn-outline-dark">Go to User Profile</button>
+</form>
+
+{% endif %}
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

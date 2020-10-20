@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %} Sudoku {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center m-3">{{level}}</h1>
+
+
+<div class="full board container-fluid mt-5 text-center">
+
+    <div class="centered">
+
+    <div id="timer">{{clock}}</div>
+    <br>
+
+<table>
+
+    <colgroup><col><col><col>
+    <colgroup><col><col><col>
+    <colgroup><col><col><col>
+
+    <tbody>
+   <tr>
+    {% for n in range(0,9) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(9,18) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(18,27) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tbody>
+   <tr>
+    {% for n in range(27,36) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(36,45) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(45,54) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tbody>
+   <tr>
+    {% for n in range(54,63) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(63,72) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+   <tr>
+    {% for n in range(72,81) %}
+    {% if "0" in board[n] %}
+    <td class="input-{{n}}"> <input type="text"> </td>
+    {% else %}
+    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+    {% endif %}
+    {% endfor %}
+   </tr> 
+
+</table>
+
+</div>
+</div>
+<br>
+
+<div class="text-center">
+
+    {% if user %}
+    
+    <button class="btn btn-light btn-outline-dark save">Save Game</button>
+    <br>
+    <br>
+    <h6>If you already have a saved game for current level ({{level}}), your previously saved game will be deleted.</h6>
+
+    <br>
+    <br>
+
+    <form action="/load" method="get">
+        <button>Load Game</button>
+    </form>
+
+    <form action="/profile" method="get">
+        <button>Go to User Profile</button>
+    </form>
+
+
+
+ {% endif %}
+
+ <form action="/" method="get">
+    <button>Go Home</button>
+</form>
+
+</div>
+
+
+<script>
+
+    x = `{{clock1}}:{{clock2}}:{{clock3}}`
+    level = '{{level}}'
+    solved = '{{solved}}'
+
+    function hmsToSecondsOnly(str) {
+            p = str.split(':'),
+            s = 0, m = 1;
+
+        while (p.length > 0) {
+            s += m * parseInt(p.pop(), 10);
+            m *= 60;
+        }
+
+        return s;
+    }
+
+    const clk = document.querySelector("#timer")
+    const interval = setInterval(countTimer, 1000);
+    
+    let totalSeconds = 0;
+    totalSeconds = hmsToSecondsOnly(x)
+    function countTimer() {
+               ++totalSeconds;
+               let hour = Math.floor(totalSeconds /3600);
+               let minute = Math.floor((totalSeconds - hour*3600)/60);
+               let seconds = totalSeconds - (hour*3600 + minute*60);
+               if(hour < 10)
+                 hour = "0"+hour;
+               if(minute < 10)
+                 minute = "0"+minute;
+               if(seconds < 10)
+                 seconds = "0"+seconds;
+                 if (hour == 0)
+                    clk.innerHTML = minute + ":" + seconds;
+                else
+                    clk.innerHTML = hour + ":" + minute + ":" + seconds;
+            }
+               
+    
+    btn = document.querySelector('.save')
+    let newBoard = '';
+
+    function makePostRequest(path, queryObj) { 
+    axios.post(path, queryObj).then( 
+        (response) => { 
+            var result = response.data; 
+            console.log(result); 
+        }, 
+        (error) => { 
+            console.log(error); 
+        } 
+    ); 
+} 
+    btn.addEventListener('click', async function(e) {
+        e.preventDefault()
+        clock = clk.innerHTML
+              
+        newB()
+
+        queryObj = {             
+            board: newBoard,
+            solved: solved,
+            level: level, 
+            clock: clock 
+            };
+
+        makePostRequest('/save_game', queryObj);
+        alert("You saved the game!")
+
+    })
+
+div = document.querySelector('div')
+
+div.addEventListener('keyup', function(e){
+  if (e.target.tagName == 'INPUT') {
+      if (e.target.value != '') {
+          x = e.target.parentElement.className.slice(6);
+          y = '{{solved}}'
+          if (e.target.value == y[x]) {
+            x = e.target
+            x.setAttribute('readonly', true)
+
+            newB();
+            z = '{{solved}}'
+
+            if (newBoard == z) {
+                clock = clk.innerHTML
+                console.log("true")
+
+                clearInterval(interval)
+
+                queryObj = {             
+                    board: newBoard,
+                    solved: solved,
+                    level: level, 
+                    clock: clock 
+                };
+
+            makePostRequest('/finish_game', queryObj);
+            
+            setTimeout(() => {
+                window.location.replace("/profile")
+            }, 500);
+            }
+            else {
+                newBoard = '';
+            }
+          }
+          else {
+              e.target.classList.add('incorrect')
+          }  
+      }
+      else {
+        e.target.classList.remove('incorrect')
+      }
+  }
+})
+
+function newB() {
+    let board = document.querySelectorAll('input')
+
+    for (let i = 0; i < board.length; i++) {
+
+        if (board[i].value === '') {
+            newBoard += '0'
+        }
+        else {
+            newBoard += board[i].value
+        }
+    }
+    return newBoard
+}
+    
+    </script>
+
+
+{% endblock %}

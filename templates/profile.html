@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} Welcome! {% endblock %}
+
+{% block content %}
+
+<div class="text-center m-3">
+
+    Hi, {{usr.name}}!
+
+    <form action="/logout" method="get">
+        <button>Logout</button>
+    </form>
+
+    <form action="/" method="get">
+        <button>Go Home</button>
+    </form>
+    
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

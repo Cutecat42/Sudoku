@@ -1,0 +1,27 @@
+
+tr input {
+    width: 30px;
+    text-align: center;
+}
+
+table { 
+    border-collapse: collapse; font-family: Calibri, sans-serif; 
+}
+
+colgroup, tbody { 
+    border: solid medium; 
+}
+
+td { 
+    border: solid thin; height: 1.5em; width: 1.5em; text-align: center; padding: 0; 
+}
+
+.centered {
+    width:300px;
+    margin:0px auto;
+}
+
+.incorrect {
+    color: red;
+    border: 1px solid red;
+}
