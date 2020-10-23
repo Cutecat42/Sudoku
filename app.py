@@ -96,7 +96,7 @@ def show_profile():
     if not user:
         return redirect('/')
 
-    usr = get_user(data.user)
+    usr = get_user(user)
 
     return render_template('/profile.html',usr=usr)
 
@@ -119,13 +119,15 @@ def game():
 def play_game():
     """Loads selected game from either the api or saved game data"""
 
+    user = session.get('logged_in_user', None)
+
     if data.board == None:
         return redirect('/choose_level')
 
     set_clock(data.clock)
 
     return render_template('/sudoku.html', board=data.board, level=data.level, c=data.clock, clock1=data.clock1, 
-                            clock2=data.clock2, clock3=data.clock3, user=data.user, solved=data.solved)
+                            clock2=data.clock2, clock3=data.clock3, user=user, solved=data.solved)
 
 @app.route('/save_game', methods=["POST"])
 def get_javascript_data():
