@@ -17,6 +17,18 @@ def connect_db(app):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class DataStore():
+    board = None
+    solved = None
+    level = None
+    clock = None
+    clock1 = None
+    clock2 = None
+    clock3 = None
+    user = None
+
+data = DataStore()
+
 class User(UserMixin, db.Model):
 
     __tablename__ = "users"
