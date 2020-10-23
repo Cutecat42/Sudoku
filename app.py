@@ -76,7 +76,7 @@ def user_login():
 def logout():
     """If not logged out, logs user out"""
 
-     user = session.get('logged_in_user', None)
+    user = session.get('logged_in_user', None)
 
     if not user:
         return redirect('/login')
