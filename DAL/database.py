@@ -43,16 +43,16 @@ def get_user(user):
 
     return User.query.filter_by(id=user).first()
 
-def get_games(request):
+def get_games(request,u_id):
 
     level = requesting(request)[2]
-    user = data.user
+    user = u_id
 
     return SavedGame.query.get((level,user))
 
-def loading(level):
+def loading(level,u_id):
 
-    usr = SavedGame.query.get((level,data.user))
+    usr = SavedGame.query.get((level,u_id))
     data.board = usr.unsolved
     data.solved = usr.solved
     data.level = usr.level
@@ -60,16 +60,16 @@ def loading(level):
 
     return usr
 
-def saving(request):
+def saving(request,u_id):
     
-    saved = get_games(request)
+    saved = get_games(request,u_id)
 
     board = requesting(request)[0]
     solved = requesting(request)[1]
     level = requesting(request)[2]
     clock = requesting(request)[3]
 
-    user = data.user
+    user = u_id
 
     if saved != None:
 
@@ -90,9 +90,9 @@ def saving(request):
 
         return saved
 
-def any_saved():
+def any_saved(u_id):
 
-    user = get_user(data.user)
+    user = get_user(u_id)
 
     level = db.session.query(SavedGame).filter(SavedGame.user_id == user.id).all()
     level_list=[(i.level.lower(), i.level) for i in level]
@@ -102,15 +102,15 @@ def any_saved():
 
     return level_list
 
-def finishing(request):
+def finishing(request,u_id):
 
-    saved = get_games(request)
+    saved = get_games(request,u_id)
 
     board = requesting(request)[0]
     level = requesting(request)[2]
     clock = requesting(request)[3]
 
-    user = data.user
+    user = u_id
     usr = PersonalBest.query.get((level,user))
 
     finished = User.query.filter_by(id=user).first()

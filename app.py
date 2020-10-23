@@ -21,13 +21,17 @@ connect_db(app)
 def index():
     """Shows homepage"""
 
-    return render_template('/index.html',user=data.user)
+    user = session.get('logged_in_user', None)
+
+    return render_template('/index.html',user=user)
 
 @app.route('/sign_up', methods=["GET", "POST"])
 def sign_up_user():
     """Shows form to sign-up user if not logged in and then redirects to /"""
 
-    if data.user:
+    user = session.get('logged_in_user', None)
+
+    if user:
         return redirect('/')
 
     form = SignUp()
@@ -49,7 +53,9 @@ def sign_up_user():
 def user_login():
     """Shows form to login user if not logged in and then redirects to /"""
 
-    if data.user:
+    user = session.get('logged_in_user', None)
+
+    if user:
         return redirect('/')
 
     form = Login()
@@ -57,6 +63,7 @@ def user_login():
     if form.validate_on_submit():
 
         if login(form.username.data,form.password.data) == True:
+            session['logged_in_user'] = data.user
             return redirect('/')
 
         flash('Please check your login details and try again.')
@@ -69,11 +76,14 @@ def user_login():
 def logout():
     """If not logged out, logs user out"""
 
-    if not data.user:
+     user = session.get('logged_in_user', None)
+
+    if not user:
         return redirect('/login')
 
     logout_user()
     data.user = None
+    session.pop('logged_in_user')
 
     return redirect('/')
 
@@ -81,7 +91,9 @@ def logout():
 def show_profile():
     """Shows profile if logged in"""
 
-    if not data.user:
+    user = session.get('logged_in_user', None)
+
+    if not user:
         return redirect('/')
 
     usr = get_user(data.user)
@@ -121,35 +133,41 @@ def get_javascript_data():
     
     request_data = json.loads(request.data)
 
-    saving(request_data)
+    user = session.get('logged_in_user', None)
+
+    saving(request_data,user)
 
     return request_data
 
 @app.route('/finish_game', methods=["POST"])
 def finish_game():
+
+    user = session.get('logged_in_user', None)
   
     request_data = json.loads(request.data)
 
-    finishing(request_data)
+    finishing(request_data,user)
 
     return request_data
 
 @app.route('/load', methods=['GET', 'POST'])
 def load_game():
     """Shows form to load game if logged in and then redirects to /play_game"""
+
+    user = session.get('logged_in_user', None)
  
-    if not data.user:
+    if not user:
         return redirect('/login')
 
-    if any_saved() == False:
+    if any_saved(user) == False:
         return redirect('/choose_level')
 
     form = Level()
-    form.level.choices = any_saved()
+    form.level.choices = any_saved(user)
 
     if form.validate_on_submit():
 
-        loading(form.level.data.title())
+        loading(form.level.data.title(),user)
 
         return redirect('/play_game')
 
