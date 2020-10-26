@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %} Global Leaderboards {% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-auto">
+      <table class="table table-responsive mt-4">
+          <h3 class="mt-4 text-center">Global Stats</h3>
+        <tr>
+            <th>Games Completed</th>
+            <th>Best time for Easy Games played</th>
+            <th>Best time for Medium Games played</th>
+            <th>Best time for Hard Games played</th>
+        </tr>
+
+        
+             
+        <tr>       
+            <td>{{users[0].username}} - {{users[0].total_played}}</td>
+            <td>{{easy[0].user.username}} - {{easy[0].time}}</td>
+            <td>{{medium[0].user.username}} - {{medium[0].time}}</td>
+            <td>{{hard[0].user.username}} - {{hard[0].time}}</td>
+        </tr>
+
+        <tr>
+            <td>{{users[1].username}} - {{users[1].total_played}}</td>
+            <td>{{easy[1].user.username}} - {{easy[1].time}}</td>
+            <td>{{medium[1].user.username}} - {{medium[1].time}}</td>
+            <td>{{hard[1].user.username}} - {{hard[1].time}}</td>
+        </tr>
+            
+        <tr>
+            <td>{{users[2].username}} - {{users[2].total_played}}</td>
+            <td>{{easy[2].user.username}} - {{easy[2].time}}</td>
+            <td>{{medium[2].user.username}} - {{medium[2].time}}</td>
+            <td>{{hard[2].user.username}} - {{hard[2].time}}</td>
+        </tr>
+            
+        <tr>
+            <td>{{users[3].username}} - {{users[3].total_played}}</td>
+            <td>{{easy[3].user.username}} - {{easy[3].time}}</td>
+            <td>{{medium[3].user.username}} - {{medium[3].time}}</td>
+            <td>{{hard[3].user.username}} - {{hard[3].time}}</td>
+        </tr>
+            
+        <tr>
+            <td>{{users[4].username}} - {{users[4].total_played}}</td>
+            <td>{{easy[4].user.username}} - {{easy[4].time}}</td>
+            <td>{{medium[4].user.username}} - {{medium[4].time}}</td>
+            <td>{{hard[4].user.username}} - {{hard[4].time}}</td>
+        </tr>
+            
+        
+
+        
+
+        
+  
+          
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

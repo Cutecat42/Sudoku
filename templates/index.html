@@ -7,9 +7,24 @@
 <div class="text-center m-3">
 
 <h1>Welcome!</h1>
-<form action="/choose_level" method="get">
+
+<div>
+    <h2 class="mt-3">How to Play</h2>
+    <p>Fill the grid with your keyboard so that every row, column and 3×3 box contains the digits 1 to 9, without repeating.</p>
+    <p>If you make 5 mistakes, you will need to start over with another game. Note: It will even be removed from
+        your saved games if current puzzle is saved!
+    </p>
+</div>
+
+<form action="/choose_level" method="get" class="mt-5">
     <button class="btn-light btn-outline-dark">Play Sudoku?</button>
 </form>
+
+<form action="/global_leaderboards" method="get" class="mt-5">
+    <button class="btn-light btn-outline-dark">View Global Leaderboards</button>
+</form>
+
+
 
 {% if not user %}
 
@@ -32,11 +47,6 @@
 {% endif %}
 
 </div>
-
-
-
-
-
 
 
 {% endblock %}

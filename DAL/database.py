@@ -156,3 +156,12 @@ def best_times(u_id):
         hard = None
 
     return easy, medium, hard
+
+def global_best():
+
+    users = User.query.order_by(User.total_played.desc()).limit(10).all()
+    easy = PersonalBest.query.filter_by(level="Easy").order_by(PersonalBest.time).limit(10).all()
+    medium = PersonalBest.query.filter_by(level="Medium").order_by(PersonalBest.time).limit(10).all()
+    hard = PersonalBest.query.filter_by(level="Hard").order_by(PersonalBest.time).limit(10).all()
+
+    return users, easy, medium, hard

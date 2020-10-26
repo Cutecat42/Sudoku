@@ -58,3 +58,5 @@ class PersonalBest(db.Model):
     level = db.Column(db.Text, nullable=False, primary_key=True)
     time = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
+
+    user = db.relationship('User', backref='personal')
