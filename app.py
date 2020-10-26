@@ -5,7 +5,7 @@ from flask_login import current_user, logout_user
 from forms import ChooseLevel, Level, Login, SignUp
 
 from DAL.api import get_level, set_clock
-from DAL.database import signup, login, is_username, get_user, edit_user, get_games, loading, saving, any_saved, finishing, best_times, global_best
+from DAL.database import signup, login, is_username, get_user, edit_user, get_games, loading, saving, any_saved, finishing, ending, best_times, global_best
 from models import db, data, connect_db, load_user, DataStore, User, SavedGame, PersonalBest
 
 
@@ -198,6 +198,19 @@ def finish_game():
     request_data = json.loads(request.data)
 
     finishing(request_data,user)
+
+    return request_data
+
+@app.route('/end_game', methods=["POST"])
+def end_game():
+    """End current game if too many mistakes have been made and delete if saved"""
+
+    user = session.get('logged_in_user', None)
+
+    flash('You made too many mistakes - Better luck next time!')
+
+    request_data = json.loads(request.data)
+    ending(request_data,user)
 
     return request_data
 

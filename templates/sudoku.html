@@ -222,8 +222,10 @@
     }
 
 div = document.querySelector('div')
+mistakes = 0
 
 div.addEventListener('keyup', function(e){
+    
   if (e.target.tagName == 'INPUT') {
       if (e.target.value != '') {
           x = e.target.parentElement.className.slice(6);
@@ -260,12 +262,28 @@ div.addEventListener('keyup', function(e){
           }
           else {
               e.target.classList.add('incorrect')
+              mistakes += 1
+              if (mistakes === 5) {
+                    queryObj = {
+                        board: "None",
+                        solved: solved,
+                        level: level, 
+                        clock: "None"
+                    };
+
+                makePostRequest('/end_game', queryObj);
+                setTimeout(() => {
+                window.location.replace("/choose_level")
+            }, 300);
+                
+              }
           }  
       }
       else {
         e.target.classList.remove('incorrect')
       }
   }
+  console.log(mistakes)
 })
 
 function newB() {

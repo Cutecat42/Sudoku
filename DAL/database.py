@@ -150,6 +150,18 @@ def finishing(request,u_id):
 
     return saved
 
+def ending(request,u_id):
+
+    data.board = None
+    saved = get_games(request,u_id)
+    board = requesting(request)[1]
+
+    if saved.solved == str(board):
+        db.session.delete(saved)
+        db.session.commit()
+
+    return None
+
 def best_times(u_id):
 
     if PersonalBest.query.get(("Easy",u_id)):

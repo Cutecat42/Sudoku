@@ -7,6 +7,15 @@
 <div class="text-center">
 <h1 class="m-3">Play Sudoku</h1>
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }} 
+        
+    </div>
+{% endif %}
+{% endwith %}
+
 <form method="post">
     {{ form.hidden_tag() }}
 

@@ -37,9 +37,18 @@
         {% endfor %}
     
         <button class="btn-light btn-outline-dark">Submit</button>
-    
-    
+
     </form>
+
+    {% if user %}
+    <form action="/profile" method="get">
+        <button class="btn-light btn-outline-dark">Cancel</button>
+    </form>
+    {% else %}
+    <form action="/login" method="get">
+        <button class="btn-light btn-outline-dark">Login</button>
+    </form>
+    {% endif %}
     </div>
 
 
