@@ -6,12 +6,17 @@
 
 
 <div class="text-center">
+    {% if not user %}
     <h1 class="m-3">Sign-Up</h1>
+    {% else %}
+    <h1 class="m-3">Edit Profile</h1>
+    <h6>You can edit your name and username. Please enter your current password.</h6>
+    {% endif %}
     
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="notification is-danger">
-            {{ messages[0] }} Go to <a href="/login">login page</a>.
+            {{ messages[0] }}
             
         </div>
     {% endif %}

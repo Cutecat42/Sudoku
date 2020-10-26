@@ -43,6 +43,16 @@ def get_user(user):
 
     return User.query.filter_by(id=user).first()
 
+def edit_user(name,curr_username,new_username):
+
+    user = User.query.filter_by(username=curr_username).first()
+
+    user.name = name
+    user.username = new_username
+    db.session.commit()
+
+    return user
+
 def get_games(request,u_id):
 
     level = requesting(request)[2]

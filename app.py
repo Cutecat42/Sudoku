@@ -1,11 +1,11 @@
 import json, os
 
-from flask import Flask, request, redirect, render_template, session, flash
+from flask import Flask, request, redirect, render_template, session, flash, Markup
 from flask_login import current_user, logout_user
 from forms import ChooseLevel, Level, Login, SignUp
 
 from DAL.api import get_level, set_clock
-from DAL.database import signup, login, is_username, get_user, get_games, loading, saving, any_saved, finishing, best_times, global_best
+from DAL.database import signup, login, is_username, get_user, edit_user, get_games, loading, saving, any_saved, finishing, best_times, global_best
 from models import db, data, connect_db, load_user, DataStore, User, SavedGame, PersonalBest
 
 
@@ -39,14 +39,15 @@ def sign_up_user():
     if form.validate_on_submit():
 
         if is_username(form.username.data) == True:
-            flash('Username already exists.')
+            flash(Markup('Username already exists. Go to <a href="/login" class="alert-link">login</a> page.'))
             return redirect('/sign_up')
 
         signup(form.name.data,form.username.data,form.password.data)
+        session['logged_in_user'] = data.user
         return redirect('/')
         
     else:
-        return render_template('/signup.html', form=form)
+        return render_template('/signup.html', form=form,user=user)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -100,6 +101,42 @@ def show_profile():
     best_time = best_times(user)
 
     return render_template('/profile.html',usr=usr,best_times=best_time)
+
+@app.route('/edit', methods=["GET", "POST"])
+def edit_user_page():
+    """Shows form to edit user if logged in, edits if password is authenticated, 
+    and then redirects back to user profile"""
+
+    user = session.get('logged_in_user', None)
+
+    if not user:
+        return redirect('/')
+
+    form = SignUp()
+
+    if form.validate_on_submit():
+        print(form.username.data)
+        print(get_user(user).username)
+
+        if form.username.data != get_user(user).username:
+            
+            if is_username(form.username.data) == True:
+                print("hi")
+                flash('Username already exists.')
+                return redirect('/edit')
+        if login(get_user(user).username,form.password.data) == False:
+            flash('Incorrect Password.')
+            logout_user()
+            data.user = None
+            session.pop('logged_in_user')
+            return redirect('/login')
+
+        edit_user(form.name.data,get_user(user).username,form.username.data)
+        # session['logged_in_user'] = data.user
+        return redirect('/profile')
+        
+    else:
+        return render_template('/signup.html', form=form,user=user)
 
 @app.route('/global_leaderboards')
 def leader_boards():
