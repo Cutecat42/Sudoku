@@ -5,15 +5,13 @@
 {% block content %}
 
 
-<div class="text-center">
+<div class="text-center border border-info rounded mt-5 width-50">
     <h1 class="m-3">Login</h1>
-
-        
+   
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="notification is-danger">
-            {{ messages[0] }} 
-            
+            {{ messages[0] }}     
         </div>
     {% endif %}
     {% endwith %}
@@ -32,12 +30,8 @@
     
         {% endfor %}
     
-        <button class="btn-light btn-outline-dark">Submit</button>
-    
-    
+        <button class="btn-light btn-outline-dark mb-4">Submit</button>
     </form>
-    </div>
-
-
+</div>
 
 {% endblock %}

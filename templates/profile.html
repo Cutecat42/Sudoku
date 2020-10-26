@@ -4,54 +4,43 @@
 
 {% block content %}
 
-<div class="text-center m-3">
-
-    Hi, {{usr.name}}!
-
-    <div class="row justify-content-center">
+<div class="text-center">
+    <div class="row justify-content-center table-bordered">
+        
         <div class="col-auto">
+            <p class="mt-3">Hi, {{usr.name}}!</p> 
+            <h3 class="mt-4 text-center">Personal Stats</h3>
           <table class="table table-responsive mt-4">
-              <h3 class="mt-4">Personal Stats</h3>
+              <thead class="table-secondary">
             <tr>
-                <th>Games Completed</th>
-                <th>Best time for Easy Games played</th>
-                <th>Best time for Medium Games played</th>
-                <th>Best time for Hard Games played</th>
+                <th class="align-middle">Games Completed</th>
+                <th class="align-middle">Best time for Easy Games played</th>
+                <th class="align-middle">Best time for Medium Games played</th>
+                <th class="align-middle">Best time for Hard Games played</th>
               </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td>{{usr.total_played}}</td>
                 <td>{{best_times[0]}}</td>
                 <td>{{best_times[1]}}</td>
                 <td>{{best_times[2]}}</td>
               </tr>
+            </tbody>
             </table>
         </div>
     </div>
 
     <div class="text-center m-3">
-
-        <form action="/logout" method="get" class="mt-5">
-            <button>Logout</button>
-        </form>
         <form action="/edit" method="get">
             <button>Edit Profile</button>
         </form>
-
-        <form action="/" method="get" class="mt-5">
-            <button>Go Home</button>
-        </form>
-
     </div>
     
 </div>
 
-
-
-
-
-
-
-
-
+<script>
+    document.querySelector('.active').classList.remove("active")
+</script>
 
 {% endblock %}

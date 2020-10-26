@@ -5,19 +5,18 @@
 {% block content %}
 
 
-<div class="text-center">
+<div class="text-center border border-info rounded mt-5 width-50">
     {% if not user %}
-    <h1 class="m-3">Sign-Up</h1>
+        <h1 class="m-3">Sign-Up</h1>
     {% else %}
-    <h1 class="m-3">Edit Profile</h1>
-    <h6>You can edit your name and username. Please enter your current password.</h6>
+        <h1 class="m-3">Edit Profile</h1>
+        <h6>You can edit your name and username. Please enter your current password.</h6>
     {% endif %}
     
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="notification is-danger">
-            {{ messages[0] }}
-            
+            {{ messages[0] }}    
         </div>
     {% endif %}
     {% endwith %}
@@ -36,21 +35,12 @@
     
         {% endfor %}
     
-        <button class="btn-light btn-outline-dark">Submit</button>
-
+        <button class="btn-light btn-outline-dark form-with-btn mb-4">Submit</button>
+        {% if user %}
+        <button class="btn-light btn-outline-dark form-with-btn" formaction="/profile">Cancel</button>
+        {% else %}
+        <button class="btn-light btn-outline-dark form-with-btn" formaction="/login">Login</button>
+        {% endif %}
     </form>
-
-    {% if user %}
-    <form action="/profile" method="get">
-        <button class="btn-light btn-outline-dark">Cancel</button>
-    </form>
-    {% else %}
-    <form action="/login" method="get">
-        <button class="btn-light btn-outline-dark">Login</button>
-    </form>
-    {% endif %}
-    </div>
-
-
 
 {% endblock %}

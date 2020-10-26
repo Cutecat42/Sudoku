@@ -4,151 +4,128 @@
 
 {% block content %}
 
-<h1 class="text-center m-3">{{level}}</h1>
-
 
 <div class="full board container-fluid mt-5 text-center">
+    <h1 class="text-center m-3">{{level}}</h1>
 
     <div class="centered">
+        <div id="timer">{{clock}}</div>
+        <br>
+        <table>
+            <colgroup><col><col><col>
+            <colgroup><col><col><col>
+            <colgroup><col><col><col>
+            <tbody>
+        <tr>
+            {% for n in range(0,9) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-    <div id="timer">{{clock}}</div>
-    <br>
+        <tr>
+            {% for n in range(9,18) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-<table>
+        <tr>
+            {% for n in range(18,27) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-    <colgroup><col><col><col>
-    <colgroup><col><col><col>
-    <colgroup><col><col><col>
+        <tbody>
+        <tr>
+            {% for n in range(27,36) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-    <tbody>
-   <tr>
-    {% for n in range(0,9) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
+        <tr>
+            {% for n in range(36,45) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-   <tr>
-    {% for n in range(9,18) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
+        <tr>
+            {% for n in range(45,54) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-   <tr>
-    {% for n in range(18,27) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
+        <tbody>
+        <tr>
+            {% for n in range(54,63) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-   <tbody>
-   <tr>
-    {% for n in range(27,36) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
+        <tr>
+            {% for n in range(63,72) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
 
-   <tr>
-    {% for n in range(36,45) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
+        <tr>
+            {% for n in range(72,81) %}
+            {% if "0" in board[n] %}
+            <td class="input-{{n}}"> <input type="text"> </td>
+            {% else %}
+            <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
+            {% endif %}
+            {% endfor %}
+        </tr> 
+        </table>
+    </div>
 
-   <tr>
-    {% for n in range(45,54) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
-
-   <tbody>
-   <tr>
-    {% for n in range(54,63) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
-
-   <tr>
-    {% for n in range(63,72) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
-
-   <tr>
-    {% for n in range(72,81) %}
-    {% if "0" in board[n] %}
-    <td class="input-{{n}}"> <input type="text"> </td>
-    {% else %}
-    <td class="input-{{n}}"> <input type="text" value="{{board[n]}}" readonly> </td>
-    {% endif %}
-    {% endfor %}
-   </tr> 
-
-</table>
-
-</div>
 </div>
 <br>
 
 <div class="text-center">
 
-    {% if user %}
-    
-    <button onclick="saveGame()" class="btn btn-light btn-outline-dark save">Save Game</button>
-    <br>
-    <br>
-    <h6>If you already have a saved game for current level ({{level}}), your previously saved game will be deleted.</h6>
-
-    <br>
-    <br>
-
-    <form action="/load" method="get">
+    {% if user %}    
+    <button onclick="saveGame()" class="btn-light btn-outline-dark save">Save Game</button>
+    <form action="/load" method="get" class="form-with-btn">
         <button>Load Game</button>
     </form>
-
-    <form action="/profile" method="get">
-        <button>Go to User Profile</button>
-    </form>
-
-
-
- {% endif %}
-
- <form action="/" method="get">
-    <button>Go Home</button>
-</form>
+    <br>
+    <br>
+    <h6>If you already have a saved game for current level ({{level}}), your previously saved game will be deleted if you save!</h6>
+    {% endif %}
 
 </div>
-
 
 <script>
 
@@ -301,7 +278,6 @@ function newB() {
     return newBoard
 }
     
-    </script>
-
+</script>
 
 {% endblock %}

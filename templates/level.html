@@ -4,39 +4,43 @@
 
 {% block content %}
 
-<div class="text-center">
-<h1 class="m-3">Play Sudoku</h1>
+<div class="text-center border border-info rounded mt-5 width-50">
+    <h1 class="m-3">Play Sudoku</h1>
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }} 
-        
-    </div>
-{% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}   
+        </div>
+    {% endif %}
+    {% endwith %}
 
-<form method="post">
-    {{ form.hidden_tag() }}
+<div>
+    <form method="post">
+        {{ form.hidden_tag() }}
 
-    {% for field in form 
-        if field.widget.input_type != 'hidden' %}
+        {% for field in form 
+            if field.widget.input_type != 'hidden' %}
 
-    <p>
-        {{ field.label }}
-        {{ field }}
-    </p>
+        <p>
+            {{ field.label }}
+            {{ field }}
+        </p>
 
-    {% endfor %}
+        {% endfor %}
 
-    <button class="btn-light btn-outline-dark">Submit</button>
-
-
-</form>
+        <button class="btn-light btn-outline-dark mb-4 form-with-btn">Submit</button>
+        {% if user %}
+        {% if no_saved %}
+        <button class="btn-light btn-outline-dark form-with-btn" formaction="/load">Load Game</button>
+        {% endif %}
+        {% endif %}
+    </form>
 </div>
 
-
-
-
+<script>
+    document.querySelector('.active').classList.remove("active")
+    document.querySelector('.play').classList.add("active")
+</script>
 
 {% endblock %}

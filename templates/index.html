@@ -6,47 +6,68 @@
 
 <div class="text-center m-3">
 
-<h1>Welcome!</h1>
+  <h1>Welcome!</h1>
 
-<div>
-    <h2 class="mt-3">How to Play</h2>
-    <p>Fill the grid with your keyboard so that every row, column and 3×3 box contains the digits 1 to 9, without repeating.</p>
-    <p>If you make 5 mistakes, you will need to start over with another game. Note: It will even be removed from
-        your saved games if current puzzle is saved!
-    </p>
-</div>
+  <img src="/static/images/sudoku.png" alt="sudoku" class="sudoku-img mt-3">
+  <br>
+  <br>
+  <br>
 
-<form action="/choose_level" method="get" class="mt-5">
-    <button class="btn-light btn-outline-dark">Play Sudoku?</button>
-</form>
+  <form action="/choose_level" method="get" class="mt-5 form-with-btn">
+    <button class="btn-light btn-outline-dark">Play Sudoku</button>
+  </form>
 
-<form action="/global_leaderboards" method="get" class="mt-5">
-    <button class="btn-light btn-outline-dark">View Global Leaderboards</button>
-</form>
+  &nbsp;
 
+  <button class="btn-light btn-outline-dark" onclick="openModal()">How to Play</button>
 
-
-{% if not user %}
-
-<form action="/sign_up" method="get">
-    <button class="btn-light btn-outline-dark">Register</button>
-</form>
-
-<form action="/login" method="get">
-    <button class="btn-light btn-outline-dark">Login</button>
-</form>
-
-{% endif %}
-
-{% if user %}
-
-<form action="/profile" method="get">
-    <button class="btn-light btn-outline-dark">Go to User Profile</button>
-</form>
-
-{% endif %}
+    <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="howToPlay" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">How to Play</h5>
+              <button type="button" class="close" aria-label="Close"  onclick="closeModal()">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Fill the grid with your keyboard so that every row, column and 3×3 box contains the digits 1 to 9, without repeating.</p>
+                <p>If you make 5 mistakes, you will need to start over with another game. Note: It will even be removed from
+                    your saved games if current puzzle is saved!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="modal-backdrop fade show" id="backdrop"  style="display: none;"></div>
 
 </div>
 
+<script>
+    function openModal() {
+        document.getElementById("backdrop").style.display = "block"
+        document.getElementById("howToPlay").style.display = "block"
+        document.getElementById("howToPlay").classList.add("show")
+    }
+    function closeModal() {
+        document.getElementById("backdrop").style.display = "none"
+        document.getElementById("howToPlay").style.display = "none"
+        document.getElementById("howToPlay").classList.remove("show");
+    }
+
+    let modal = document.getElementById('howToPlay');
+    
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal()
+      }
+    }
+
+    document.querySelector('.active').classList.remove("active")
+    document.querySelector('.home').classList.add("active")
+</script>
 
 {% endblock %}

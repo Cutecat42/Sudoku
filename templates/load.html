@@ -4,24 +4,22 @@
 
 {% block content %}
 
+<div class="text-center border border-info rounded mt-5 width-50">
+    <form method="post">
+        {{ form.hidden_tag() }}
 
-<form method="post">
-    {{ form.hidden_tag() }}
+        {% for field in form 
+            if field.widget.input_type != 'hidden' %}
 
-    {% for field in form 
-        if field.widget.input_type != 'hidden' %}
+        <p class="mt-3">
+            {{ field.label }}
+            {{ field }}
+        </p>
 
-    <p>
-        {{ field.label }}
-        {{ field }}
-    </p>
+        {% endfor %}
 
-    {% endfor %}
-
-    <button class="btn-light btn-outline-dark">Submit</button>
-
-
-
-
+        <button class="btn-light btn-outline-dark mb-3">Submit</button>
+    </form>
+</div>
 
 {% endblock %}

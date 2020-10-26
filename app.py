@@ -44,6 +44,7 @@ def sign_up_user():
 
         signup(form.name.data,form.username.data,form.password.data)
         session['logged_in_user'] = data.user
+        data.board = None
         return redirect('/')
         
     else:
@@ -65,6 +66,7 @@ def user_login():
 
         if login(form.username.data,form.password.data) == True:
             session['logged_in_user'] = data.user
+            data.board = None
             return redirect('/')
 
         flash('Please check your login details and try again.')
@@ -84,6 +86,7 @@ def logout():
 
     logout_user()
     data.user = None
+    data.board = None
     session.pop('logged_in_user')
 
     return redirect('/')
@@ -100,7 +103,7 @@ def show_profile():
     usr = get_user(user)
     best_time = best_times(user)
 
-    return render_template('/profile.html',usr=usr,best_times=best_time)
+    return render_template('/profile.html',usr=usr,best_times=best_time,user=user)
 
 @app.route('/edit', methods=["GET", "POST"])
 def edit_user_page():
@@ -142,27 +145,39 @@ def edit_user_page():
 def leader_boards():
     """Show the best times and games completed for all users"""
 
+    user = session.get('logged_in_user', None)
+
     users = global_best()[0]
     easy = global_best()[1]
     medium = global_best()[2]
     hard = global_best()[3]
 
-    return render_template('global.html', users=users,easy=easy,medium=medium,hard=hard)
+    return render_template('global.html', users=users,easy=easy,medium=medium,hard=hard,user=user)
 
 
 @app.route('/choose_level', methods=["GET", "POST"])
 def game():
     """Shows form to play game and then redirects to /play_game"""
 
+    user = session.get('logged_in_user', None)
+
     form = ChooseLevel()
 
+    if user:
+        if any_saved(user) == False:
+            no_saved = False
+        else:
+            no_saved = True
+    else:
+        no_saved = False
+
     if form.validate_on_submit():
-            
+                  
         get_level(form.level.data)
         return redirect('/play_game')
 
     else:
-        return render_template('/level.html', form=form)
+        return render_template('/level.html', form=form,user=user,no_saved=no_saved)
 
 @app.route('/play_game')
 def play_game():
@@ -236,4 +251,4 @@ def load_game():
         return redirect('/play_game')
 
     else:
-        return render_template('/load.html',form=form)
+        return render_template('/load.html',form=form,user=user)

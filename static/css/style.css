@@ -5,15 +5,20 @@ tr input {
 }
 
 table { 
-    border-collapse: collapse; font-family: Calibri, sans-serif; 
+    border-collapse: collapse; 
+    font-family: Calibri, sans-serif; 
 }
 
-colgroup, tbody { 
+colgroup, thead, tbody { 
     border: solid medium; 
 }
 
-td { 
-    border: solid thin; height: 1.5em; width: 1.5em; text-align: center; padding: 0; 
+td, tr { 
+    border: solid thin; 
+    height: 1.5em; 
+    width: 1.5em; 
+    text-align: center; 
+    padding: 0; 
 }
 
 .centered {
@@ -24,4 +29,19 @@ td {
 .incorrect {
     color: red;
     border: 1px solid red;
+}
+
+.form-with-btn {
+    display: inline;
+}
+
+.sudoku-img {
+    max-width: 50%;
+    margin:0px auto;
+    border-radius: 10px;
+}
+
+.width-50 {
+    max-width:50%;
+    margin:0px auto;
 }
