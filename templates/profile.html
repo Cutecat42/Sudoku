@@ -8,15 +8,41 @@
 
     Hi, {{usr.name}}!
 
-    <form action="/logout" method="get">
-        <button>Logout</button>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+          <table class="table table-responsive mt-4">
+              <h3 class="mt-4">Personal Stats</h3>
+            <tr>
+                <th>Games Completed</th>
+                <th>Best time for Easy Games played</th>
+                <th>Best time for Medium Games played</th>
+                <th>Best time for Hard Games played</th>
+              </tr>
+              <tr>
+                <td>{{usr.total_played}}</td>
+                <td>{{best_times[0]}}</td>
+                <td>{{best_times[1]}}</td>
+                <td>{{best_times[2]}}</td>
+              </tr>
+            </table>
+        </div>
+    </div>
 
-    <form action="/" method="get">
-        <button>Go Home</button>
-    </form>
+    <div class="text-center m-3">
+
+        <form action="/logout" method="get" class="mt-5">
+            <button>Logout</button>
+        </form>
+
+        <form action="/" method="get">
+            <button>Go Home</button>
+        </form>
+
+    </div>
     
 </div>
+
+
 
 
 

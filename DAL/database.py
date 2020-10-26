@@ -96,6 +96,7 @@ def any_saved(u_id):
 
     level = db.session.query(SavedGame).filter(SavedGame.user_id == user.id).all()
     level_list=[(i.level.lower(), i.level) for i in level]
+    print(level)
 
     if not level_list:
         return False
@@ -138,3 +139,20 @@ def finishing(request,u_id):
                 db.session.commit()
 
     return saved
+
+def best_times(u_id):
+
+    if PersonalBest.query.get(("Easy",u_id)):
+        easy = PersonalBest.query.get(("Easy",u_id)).time
+    if not PersonalBest.query.get(("Easy",u_id)):
+        easy = None
+    if PersonalBest.query.get(("Medium",u_id)):
+        medium = PersonalBest.query.get(("Medium",u_id)).time
+    if not PersonalBest.query.get(("Medium",u_id)):
+        medium = None
+    if PersonalBest.query.get(("Hard",u_id)):
+        hard = PersonalBest.query.get(("Hard",u_id)).time
+    if not PersonalBest.query.get(("Hard",u_id)):
+        hard = None
+
+    return easy, medium, hard

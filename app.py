@@ -5,7 +5,7 @@ from flask_login import current_user, logout_user
 from forms import ChooseLevel, Level, Login, SignUp
 
 from DAL.api import get_level, set_clock
-from DAL.database import signup, login, is_username, get_user, get_games, loading, saving, any_saved, finishing
+from DAL.database import signup, login, is_username, get_user, get_games, loading, saving, any_saved, finishing, best_times
 from models import db, data, connect_db, load_user, DataStore, User, SavedGame, PersonalBest
 
 
@@ -98,7 +98,9 @@ def show_profile():
 
     usr = get_user(user)
 
-    return render_template('/profile.html',usr=usr)
+    best_time = best_times(user)
+
+    return render_template('/profile.html',usr=usr,best_times=best_time)
 
 
 @app.route('/choose_level', methods=["GET", "POST"])
