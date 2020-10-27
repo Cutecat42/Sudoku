@@ -5,8 +5,9 @@
 {% block content %}
 
 
-<div class="full board container-fluid mt-5 text-center">
+<div class="full-board container-fluid mt-5 text-center">
     <h1 class="text-center m-3">{{level}}</h1>
+    <h6>If you make 5 mistakes, you lose! Make sure to keep track ;)</h6>
 
     <div class="centered">
         <div id="timer">{{clock}}</div>
@@ -198,16 +199,17 @@
 
     }
 
-div = document.querySelector('div')
+div = document.querySelector('.full-board')
 mistakes = 0
 
-div.addEventListener('keyup', function(e){
-    
-  if (e.target.tagName == 'INPUT') {
-      if (e.target.value != '') {
-          x = e.target.parentElement.className.slice(6);
-          y = '{{solved}}'
-          if (e.target.value == y[x]) {
+div.addEventListener('keyup', function(e){   
+    if (e.target.tagName == 'INPUT') {
+
+        if (e.target.value != '') {
+
+            x = e.target.parentElement.className.slice(6);
+            y = '{{solved}}'
+            if (e.target.value == y[x]) {
             x = e.target
             x.setAttribute('readonly', true)
 
@@ -216,7 +218,6 @@ div.addEventListener('keyup', function(e){
 
             if (newBoard == z) {
                 clock = clk.innerHTML
-                console.log("true")
 
                 clearInterval(interval)
 
@@ -228,19 +229,20 @@ div.addEventListener('keyup', function(e){
                 };
 
             makePostRequest('/finish_game', queryObj);
-            
+                
             setTimeout(() => {
+                alert("You won the game!")
                 window.location.replace("/profile")
-            }, 500);
+                }, 500);
             }
             else {
                 newBoard = '';
+                }
             }
-          }
-          else {
-              e.target.classList.add('incorrect')
-              mistakes += 1
-              if (mistakes === 5) {
+            else {
+                e.target.classList.add('incorrect')
+                // mistakes += 1
+                if (mistakes === 5) {
                     queryObj = {
                         board: "None",
                         solved: solved,
@@ -248,19 +250,19 @@ div.addEventListener('keyup', function(e){
                         clock: "None"
                     };
 
-                makePostRequest('/end_game', queryObj);
-                setTimeout(() => {
-                window.location.replace("/choose_level")
-            }, 300);
-                
-              }
-          }  
-      }
-      else {
-        e.target.classList.remove('incorrect')
-      }
-  }
-  console.log(mistakes)
+                    makePostRequest('/end_game', queryObj);
+                    setTimeout(() => {
+                    window.location.replace("/choose_level")
+                    }, 300);
+                    
+                }
+            }  
+        }
+        else {
+            e.target.classList.remove('incorrect')
+        }
+    }
+  
 })
 
 function newB() {
