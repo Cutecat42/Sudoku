@@ -7,10 +7,11 @@
 
 <div class="full-board container-fluid mt-5 text-center">
     <h1 class="text-center m-3">{{level}}</h1>
-    <h6>If you make 5 mistakes, you lose! Make sure to keep track ;)</h6>
+    <h6>If you make 5 mistakes, you lose!</h6>
 
     <div class="centered">
         <div id="timer">{{clock}}</div>
+        <div># of mistakes: <span id="mistakes">0</span></div>
         <br>
         <table>
             <colgroup><col><col><col>
@@ -201,6 +202,8 @@
 
 div = document.querySelector('.full-board')
 mistakes = 0
+let counter = document.getElementById('mistakes')
+counter.style.color = "red";
 
 div.addEventListener('keyup', function(e){   
     if (e.target.tagName == 'INPUT') {
@@ -242,6 +245,7 @@ div.addEventListener('keyup', function(e){
             else {
                 e.target.classList.add('incorrect')
                 mistakes += 1
+                counter.innerHTML = mistakes
                 if (mistakes === 5) {
                     queryObj = {
                         board: "None",
