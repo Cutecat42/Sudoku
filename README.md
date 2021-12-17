@@ -1,6 +1,6 @@
 # Cat's Sudoku (AKA Best Sudoku)
 
-###Unfortunately, this no longer works as the API has been changed. If I can find another Sudoku API, or am able to create my own, I will update this project.
+## Unfortunately, this no longer works as the API has been changed. If I can find another Sudoku API, or am able to create my own, I will update this project.
 
 A website where you can play Sudoku. You can sign up, login, save/load games, and see best times/completed games for yourself.
 Global leaderboard can be seen as well.
